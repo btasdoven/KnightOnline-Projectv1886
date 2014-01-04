@@ -11,7 +11,7 @@ BOOL WINAPI _ConsoleHandler(DWORD dwCtrlType);
 
 int main()
 {
-	SetConsoleTitle("LogIn Server for Knight Online v" STRINGIFY(__VERSION));
+	SetConsoleTitle("X-Shield Login Server v" STRINGIFY(__VERSION));
 
 #ifdef WIN32
 	// Override the console handler
@@ -25,7 +25,7 @@ int main()
 	// Startup server
 	if (g_pMain->Startup())
 	{
-		printf("\nServer started up successfully!\n\n");
+		printf("\nX-Shield started up successfully!\n\n");
 
 		// Wait until console's signaled as closing
 		s_hEvent.Wait();
