@@ -18,14 +18,14 @@ bool LoginServer::Startup()
 
         CreateDirectory("Logs",NULL);
 
-        m_fpLoginServer = fopen("./Logs/LoginServer.log", "a");
+        m_fpLoginServer = fopen("./Logs/X-Shield Log.log", "a");
         if (m_fpLoginServer == nullptr)
         {
                 printf("ERROR: Unable to open log file.\n");
                 return false;
         }
 
-        m_fpUser = fopen(string_format("./Logs/Login_%d_%d_%d.log",time.GetDay(),time.GetMonth(),time.GetYear()).c_str(), "a");
+        m_fpUser = fopen(string_format("./Logs/X-ShieldLog_%d_%d_%d.log",time.GetDay(),time.GetMonth(),time.GetYear()).c_str(), "a");
         if (m_fpUser == nullptr)
         {
                 printf("ERROR: Unable to open user log file.\n");
