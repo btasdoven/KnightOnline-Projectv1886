@@ -18,7 +18,7 @@ bool LoginServer::Startup()
 
         CreateDirectory("Logs",NULL);
 
-        m_fpLoginServer = fopen("./Logs/X-Shield Log.log", "a");
+        m_fpLoginServer = fopen("./Logs/LoginServer.log", "a");
         if (m_fpLoginServer == nullptr)
         {
                 printf("ERROR: Unable to open log file.\n");
