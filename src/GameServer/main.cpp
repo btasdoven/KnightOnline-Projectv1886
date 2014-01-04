@@ -14,7 +14,7 @@ bool g_bRunning = true;
 
 int main()
 {
-        SetConsoleTitle("Game Server for Knight Online v" STRINGIFY(__VERSION));
+        SetConsoleTitle("X-Shield GameServer v" STRINGIFY(__VERSION));
 
 #ifdef WIN32
         // Override the console handler
@@ -37,7 +37,7 @@ int main()
                 // Reset Battle Zone Variables.
                 g_pMain->ResetBattleZone();
 
-                printf("\nServer started up successfully!\n");
+                printf("\nX-Shield started up successfully!\n");
 
                 // Wait until console's signaled as closing
                 s_hEvent.Wait();
