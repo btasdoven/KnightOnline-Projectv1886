@@ -2704,13 +2704,24 @@ void CUser::LoyaltyChange(int16 tid, uint16 bonusNP /*= 0*/)
 
 void CUser::SpeedHackUser()
 {
-        if (!isInGame())
-                return;
+if (!isInGame())
+return;
 
-        if( m_bAuthority != 0 )
-                m_bAuthority = -1;
+if (GetAuthority() != AUTHORITY_GAME_MASTER)
+{
+    uint16 MaxSpeed = 45;
 
+    if (GetFame() == COMMAND_CAPTAIN)
+        MaxSpeed = 90;
+    else if (isRogue())
+        MaxSpeed = 90;
+    else if (isWarrior() || isMage() || isPriest())
+        MaxSpeed = 67;
+
+    if (m_sSpeed > MaxSpeed)
         Disconnect();
+}
+
 }
 
 void CUser::UserLookChange(int pos, int itemid, int durability)
