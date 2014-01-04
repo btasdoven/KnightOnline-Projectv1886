@@ -1049,6 +1049,8 @@ void CGameServerDlg::UpdateGameTime()
         // Every minute
         if (m_sMin != now.GetMinute())
         {
+                
+                SendNotice(string_format("[X-Shield] Server is beta cooming son offical server.").c_str());
 
         }
 
