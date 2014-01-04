@@ -459,7 +459,7 @@ public:
 
 	KOSocketMgr<CUser> m_socketMgr;
 	ClientSocketMgr<CAISocket> m_aiSocketMgr;
-	+  FILE *m_fpDeathUser;
+    FILE *m_fpDeathUser;
     FILE *m_fpDeathNpc;
     FILE *m_fpChat;
  
