@@ -95,8 +95,6 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(GetEventTrigger)
 						  MAKE_LUA_FUNCTION(GetPremium)
 						  MAKE_LUA_FUNCTION(CheckWarVictory)
-						  MAKE_LUA_FUNCTION(CheckMiddleStatueCapture)
-						  MAKE_LUA_FUNCTION(MoveMiddleStatue)
 						  );
 
 CLuaEngine::CLuaEngine() : m_lock(new RWLock())
@@ -114,7 +112,7 @@ CLuaScript::CLuaScript() : m_luaState(nullptr), m_lock(new FastMutex())
 */
 bool CLuaEngine::Initialise()
 {
-	printf("Started up Lua engine (built with %s)\n", LUA_RELEASE);
+	printf("Started up Lua engine in %s mode (built with %s)\n", LUA_ENGINE_MODE, LUA_RELEASE);
 	// TODO: Initialise a pool of scripts (enough for 1 per worker thread).
 	return m_luaScript.Initialise();
 }
