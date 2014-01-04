@@ -113,7 +113,7 @@ bool CN3ShapeMgr::LoadCollisionData(FILE *fp)
 	return true;
 }
 
-bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ¸ÊÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¹ÌÅÍ ´ÜÀ§·Î ³Ö´Â´Ù..
+bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // Â¸ÃŠÃ€Ã‡ Â³ÃŠÂºÃ±Â¿Ã Â³Ã´Ã€ÃŒÂ¸Â¦ Â¹ÃŒÃ…Ã Â´ÃœÃ€Â§Â·Ã Â³Ã–Â´Ã‚Â´Ã™..
 {
 	if(	fMapWidth <= 0.0f || fMapWidth > MAX_CELL_MAIN * CELL_MAIN_SIZE ||
 		fMapLength <= 0.0f || fMapLength > MAX_CELL_MAIN * CELL_MAIN_SIZE )
@@ -127,18 +127,18 @@ bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ¸ÊÀÇ ³Êºñ¿Í ³ôÀÌ¸
 	return true;
 }
 
-bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
-								 const __Vector3& vDir,		// ¹æÇâ º¤ÅÍ
-								 float fSpeedPerSec,			// ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-								 __Vector3* pvCol,			// Ãæµ¹ ÁöÁ¡
-								 __Vector3* pvNormal,		// Ãæµ¹ÇÑ¸éÀÇ ¹ı¼±º¤ÅÍ
-								 __Vector3* pVec)			// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// ÃƒÃ¦ÂµÂ¹ Ã€Â§Ã„Â¡
+								 const __Vector3& vDir,		// Â¹Ã¦Ã‡Ã¢ ÂºÂ¤Ã…Ã
+								 float fSpeedPerSec,			// ÃƒÃŠÂ´Ã§ Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¼Ã“ÂµÂµ
+								 __Vector3* pvCol,			// ÃƒÃ¦ÂµÂ¹ ÃÃ¶ÃÂ¡
+								 __Vector3* pvNormal,		// ÃƒÃ¦ÂµÂ¹Ã‡Ã‘Â¸Ã©Ã€Ã‡ Â¹Ã½Â¼Â±ÂºÂ¤Ã…Ã
+								 __Vector3* pVec)			// ÃƒÃ¦ÂµÂ¹Ã‡Ã‘ Â¸Ã© Ã€Ã‡ Ã†ÃºÂ¸Â®Â°Ã¯ __Vector3[3]
 {
-	if(fSpeedPerSec <= 0) return false; // ¿òÁ÷ÀÌ´Â ¼Óµµ°¡ ¾ø°Å³ª ¹İ´ë·Î ¿òÁ÷ÀÌ¸é ³Ñ¾î°£´Ù..
+	if(fSpeedPerSec <= 0) return false; // Â¿Ã²ÃÃ·Ã€ÃŒÂ´Ã‚ Â¼Ã“ÂµÂµÂ°Â¡ Â¾Ã¸Â°Ã…Â³Âª Â¹ÃÂ´Ã«Â·Ã Â¿Ã²ÃÃ·Ã€ÃŒÂ¸Ã© Â³Ã‘Â¾Ã®Â°Â£Â´Ã™..
 	static __CellSub* ppCells[128];
-	__Vector3 vPosNext = vPos + (vDir* fSpeedPerSec); // ´ÙÀ½ À§Ä¡
-	int nSubCellCount = this->SubCellPathThru(vPos, vPosNext, ppCells); // Åë°úÇÏ´Â ¼­ºê¼¿À» °¡Á®¿Â´Ù..
-	if(nSubCellCount <= 0 || nSubCellCount > 128) return false; // ¾øÀ½ ¸»ÀÚ.
+	__Vector3 vPosNext = vPos + (vDir* fSpeedPerSec); // Â´Ã™Ã€Â½ Ã€Â§Ã„Â¡
+	int nSubCellCount = this->SubCellPathThru(vPos, vPosNext, ppCells); // Ã…Ã«Â°ÃºÃ‡ÃÂ´Ã‚ Â¼Â­ÂºÃªÂ¼Â¿Ã€Â» Â°Â¡ÃÂ®Â¿Ã‚Â´Ã™..
+	if(nSubCellCount <= 0 || nSubCellCount > 128) return false; // Â¾Ã¸Ã€Â½ Â¸Â»Ã€Ãš.
 
 	__Vector3 vColTmp(0,0,0);
 	int nIndex0, nIndex1, nIndex2;
@@ -158,11 +158,11 @@ bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
 			if(false == ::_IntersectTriangle(vPos, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp)) continue;
 			if(false == ::_IntersectTriangle(vPosNext, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2]))
 			{
-				fDistTmp = (vPos - vColTmp).Magnitude(); // °Å¸®¸¦ Àçº¸°í..
+				fDistTmp = (vPos - vColTmp).Magnitude(); // Â°Ã…Â¸Â®Â¸Â¦ Ã€Ã§ÂºÂ¸Â°Ã­..
 				if(fDistTmp < fDistClosest) 
 				{
 					fDistClosest = fDistTmp;
-					// Ãæµ¹ÀÌ´Ù..
+					// ÃƒÃ¦ÂµÂ¹Ã€ÃŒÂ´Ã™..
 					if(pvCol) *pvCol = vColTmp;
 					if(pvNormal)
 					{
@@ -187,11 +187,11 @@ bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
 	return false;
 }
 
-int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, __CellSub** ppSubCells) // º¤ÅÍ »çÀÌ¿¡ °ÉÄ£ ¼¿Æ÷ÀÎÅÍ µ¹·ÁÁØ´Ù..
+int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, __CellSub** ppSubCells) // ÂºÂ¤Ã…Ã Â»Ã§Ã€ÃŒÂ¿Â¡ Â°Ã‰Ã„Â£ Â¼Â¿Ã†Ã·Ã€ÃÃ…Ã ÂµÂ¹Â·ÃÃÃ˜Â´Ã™..
 {
 	if(nullptr == ppSubCells) return 0;
 
-	// ¹üÀ§¸¦ Á¤ÇÏ°í..
+	// Â¹Ã¼Ã€Â§Â¸Â¦ ÃÂ¤Ã‡ÃÂ°Ã­..
 	int xx1 = 0, xx2 = 0, zz1 = 0, zz2 = 0;
 
 	if(vFrom.x < vAt.x) { xx1 = (int)(vFrom.x / CELL_SUB_SIZE); xx2 = (int)(vAt.x / CELL_SUB_SIZE); }
@@ -203,7 +203,7 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, _
 	bool bPathThru;
 	float fZMin, fZMax, fXMin, fXMax;
 	int nSubCellCount = 0;
-	for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
+	for(int z = zz1; z <= zz2; z++) // Â¹Ã¼Ã€Â§Â¸Â¸Ã…Â­ ÃƒÂ³Â¸Â®..
 	{
 		fZMin = (float)(z * CELL_SUB_SIZE);
 		fZMax = (float)((z+1) * CELL_SUB_SIZE);
@@ -224,23 +224,23 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, _
 			if(vAt.x < fXMin) dwOC1 |= 0x000f;
 
 			bPathThru = false;
-			if(dwOC0 & dwOC1) bPathThru = false; // µÎ ³¡Á¡ÀÌ °°Àº º¯ÀÇ ¿ÜºÎ¿¡ ÀÖ´Ù.
-			else if(dwOC0 == 0 && dwOC1 == 0) bPathThru = true;// ¼±ºĞÀÌ »ç°¢Çü ³»ºÎ¿¡ ÀÖÀ½
-			else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bPathThru = true;// ¼±ºĞ ÇÑÁ¡Àº ¼¿ÀÇ ³»ºÎ¿¡ ÇÑÁ¡Àº ¿ÜºÎ¿¡ ÀÖÀ½.
-			else if((dwOC0 & dwOC1) == 0) // µÎ …LÁ¡ ¸ğµÎ ¼¿ ¿ÜºÎ¿¡ ÀÖÁö¸¸ ÆÇ´ÜÀ» ´Ù½Ã ÇØ¾ß ÇÑ´Ù.
+			if(dwOC0 & dwOC1) bPathThru = false; // ÂµÃ Â³Â¡ÃÂ¡Ã€ÃŒ Â°Â°Ã€Âº ÂºÂ¯Ã€Ã‡ Â¿ÃœÂºÃÂ¿Â¡ Ã€Ã–Â´Ã™.
+			else if(dwOC0 == 0 && dwOC1 == 0) bPathThru = true;// Â¼Â±ÂºÃÃ€ÃŒ Â»Ã§Â°Â¢Ã‡Ã¼ Â³Â»ÂºÃÂ¿Â¡ Ã€Ã–Ã€Â½
+			else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bPathThru = true;// Â¼Â±ÂºÃ Ã‡Ã‘ÃÂ¡Ã€Âº Â¼Â¿Ã€Ã‡ Â³Â»ÂºÃÂ¿Â¡ Ã‡Ã‘ÃÂ¡Ã€Âº Â¿ÃœÂºÃÂ¿Â¡ Ã€Ã–Ã€Â½.
+			else if((dwOC0 & dwOC1) == 0) // ÂµÃ â€¦LÃÂ¡ Â¸Ã°ÂµÃ Â¼Â¿ Â¿ÃœÂºÃÂ¿Â¡ Ã€Ã–ÃÃ¶Â¸Â¸ Ã†Ã‡Â´ÃœÃ€Â» Â´Ã™Â½Ãƒ Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 			{
-				float fXCross = vFrom.x + (fZMax - vFrom.z) * (vAt.x - vFrom.x) / (vAt.z - vFrom.z); // À§ÀÇ º¯°úÀÇ ±³Â÷Á¡À» °è»êÇÏ°í..
-				if(fXCross < fXMin) bPathThru = false; // ¿ÏÀüÈ÷ ¿Ü°û¿¡ ÀÖ´Ù.
-				else bPathThru = true; // °ÉÃ³ÀÖ´Ù.
+				float fXCross = vFrom.x + (fZMax - vFrom.z) * (vAt.x - vFrom.x) / (vAt.z - vFrom.z); // Ã€Â§Ã€Ã‡ ÂºÂ¯Â°ÃºÃ€Ã‡ Â±Â³Ã‚Ã·ÃÂ¡Ã€Â» Â°Ã¨Â»ÃªÃ‡ÃÂ°Ã­..
+				if(fXCross < fXMin) bPathThru = false; // Â¿ÃÃ€Ã¼ÃˆÃ· Â¿ÃœÂ°Ã»Â¿Â¡ Ã€Ã–Â´Ã™.
+				else bPathThru = true; // Â°Ã‰ÃƒÂ³Ã€Ã–Â´Ã™.
 			}
 
 			if(false == bPathThru) continue;
 
-			// Ãæµ¹ Á¤º¸¸¦ ½á¾ß ÇÑ´Ù..
+			// ÃƒÃ¦ÂµÂ¹ ÃÂ¤ÂºÂ¸Â¸Â¦ Â½Ã¡Â¾ÃŸ Ã‡Ã‘Â´Ã™..
 			int nX = x / CELL_MAIN_DEVIDE;
 			int nZ = z / CELL_MAIN_DEVIDE;
-			if(nX < 0 || nX >= MAX_CELL_MAIN || nZ < 0 && nZ >= MAX_CELL_MAIN) continue; // ¸ŞÀÎ¼¿¹Ù±ù¿¡ ÀÖÀ½ Áö³ª°£´Ù.
-			if(nullptr == m_pCells[nX][nZ]) continue; // ¸ŞÀÎ¼¿ÀÌ ³ÎÀÌ¸é Áö³ª°£´Ù..
+			if(nX < 0 || nX >= MAX_CELL_MAIN || nZ < 0 && nZ >= MAX_CELL_MAIN) continue; // Â¸ÃÃ€ÃÂ¼Â¿Â¹Ã™Â±Ã¹Â¿Â¡ Ã€Ã–Ã€Â½ ÃÃ¶Â³ÂªÂ°Â£Â´Ã™.
+			if(nullptr == m_pCells[nX][nZ]) continue; // Â¸ÃÃ€ÃÂ¼Â¿Ã€ÃŒ Â³ÃÃ€ÃŒÂ¸Ã© ÃÃ¶Â³ÂªÂ°Â£Â´Ã™..
 
 			int nXSub = x%CELL_MAIN_DEVIDE;
 			int nZSub = z%CELL_MAIN_DEVIDE;
@@ -248,23 +248,23 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, _
 			ppSubCells[nSubCellCount] = &(m_pCells[nX][nZ]->SubCells[nXSub][nZSub]);
 			nSubCellCount++;
 		} // end of for(int x = xx1; x <= xx2; x++)
-	} // end of for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
+	} // end of for(int z = zz1; z <= zz2; z++) // Â¹Ã¼Ã€Â§Â¸Â¸Ã…Â­ ÃƒÂ³Â¸Â®..
 
-	return nSubCellCount; // °ÉÄ£ ¼¿ Æ÷ÀÎÅÍ µ¹·ÁÁÖ±â..
+	return nSubCellCount; // Â°Ã‰Ã„Â£ Â¼Â¿ Ã†Ã·Ã€ÃÃ…Ã ÂµÂ¹Â·ÃÃÃ–Â±Ã¢..
 }
 
-float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, __Vector3* pvNormal) // °¡Àå °¡±î¿î ³ôÀÌ°ªÀ» µ¹·ÁÁØ´Ù. ¾øÀ¸¸é -FLT_MAX À» µ¹·ÁÁØ´Ù.
+float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, __Vector3* pvNormal) // Â°Â¡Ã€Ã¥ Â°Â¡Â±Ã®Â¿Ã® Â³Ã´Ã€ÃŒÂ°ÂªÃ€Â» ÂµÂ¹Â·ÃÃÃ˜Â´Ã™. Â¾Ã¸Ã€Â¸Â¸Ã© -FLT_MAX Ã€Â» ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.
 {
-	__CellSub* pCell = this->SubCell(vPos.x, vPos.z); // ¼­ºê¼¿À» °¡Á®¿Â´Ù..
-	if(nullptr == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ¾øÀ½ ¸»ÀÚ.
+	__CellSub* pCell = this->SubCell(vPos.x, vPos.z); // Â¼Â­ÂºÃªÂ¼Â¿Ã€Â» Â°Â¡ÃÂ®Â¿Ã‚Â´Ã™..
+	if(nullptr == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // Â¾Ã¸Ã€Â½ Â¸Â»Ã€Ãš.
 
-	__Vector3 vPosV = vPos; vPosV.y = 5000.0f; // ²À´ë±â¿¡ À§Ä¡¸¦ ÇÏ°í..
-	__Vector3 vDir(0,-1, 0); // ¼öÁ÷ ¹æÇâ º¤ÅÍ
-	__Vector3 vColTmp(0,0,0); // ÃÖÁ¾ÀûÀ¸·Î °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡..
+	__Vector3 vPosV = vPos; vPosV.y = 5000.0f; // Â²Ã€Â´Ã«Â±Ã¢Â¿Â¡ Ã€Â§Ã„Â¡Â¸Â¦ Ã‡ÃÂ°Ã­..
+	__Vector3 vDir(0,-1, 0); // Â¼Ã¶ÃÃ· Â¹Ã¦Ã‡Ã¢ ÂºÂ¤Ã…Ã
+	__Vector3 vColTmp(0,0,0); // ÃƒÃ–ÃÂ¾Ã€Ã»Ã€Â¸Â·Ã Â°Â¡Ã€Ã¥ Â°Â¡Â±Ã®Â¿Ã® ÃƒÃ¦ÂµÂ¹ Ã€Â§Ã„Â¡..
 
 	int nIndex0, nIndex1, nIndex2;
 	float fT, fU, fV;
-	float fNearst = FLT_MAX, fMinTmp = 0, fHeight = -FLT_MAX;		// ÀÏ´Ü ÃÖ¼Ò°ªÀ» Å«°ªÀ¸·Î Àâ°í..
+	float fNearst = FLT_MAX, fMinTmp = 0, fHeight = -FLT_MAX;		// Ã€ÃÂ´Ãœ ÃƒÃ–Â¼Ã’Â°ÂªÃ€Â» Ã…Â«Â°ÂªÃ€Â¸Â·Ã Ã€Ã¢Â°Ã­..
 
 	for ( int i = 0; i < pCell->nCCPolyCount; i++ )
 	{
@@ -272,14 +272,14 @@ float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, __Vector3* pvNormal
 		nIndex1 = pCell->pdwCCVertIndices[i*3+1];
 		nIndex2 = pCell->pdwCCVertIndices[i*3+2];
 
-		// Ãæµ¹µÈ Á¡ÀÌ ÀÖÀ¸¸é..
+		// ÃƒÃ¦ÂµÂ¹ÂµÃˆ ÃÂ¡Ã€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã©..
 		if(true == ::_IntersectTriangle(vPosV, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp))
 		{
 			fMinTmp = (vColTmp - vPos).Magnitude();
-			if(fMinTmp < fNearst) // °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡¸¦ Ã£±â À§ÇÑ ÄÚµå..
+			if(fMinTmp < fNearst) // Â°Â¡Ã€Ã¥ Â°Â¡Â±Ã®Â¿Ã® ÃƒÃ¦ÂµÂ¹ Ã€Â§Ã„Â¡Â¸Â¦ ÃƒÂ£Â±Ã¢ Ã€Â§Ã‡Ã‘ Ã„ÃšÂµÃ¥..
 			{
 				fNearst = fMinTmp;
-				fHeight = vColTmp.y; // ³ôÀÌ°ª.
+				fHeight = vColTmp.y; // Â³Ã´Ã€ÃŒÂ°Âª.
 
 				if(pvNormal)
 				{
@@ -293,14 +293,14 @@ float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, __Vector3* pvNormal
 	return fHeight;
 }
 
-float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ôÀº °÷À» µ¹·ÁÁØ´Ù.. ¾øÀ¸¸é -FLT_MAX°ªÀ» µ¹·ÁÁØ´Ù.
+float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // Â°Â¡Ã€Ã¥ Â³Ã´Ã€Âº Â°Ã·Ã€Â» ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.. Â¾Ã¸Ã€Â¸Â¸Ã© -FLT_MAXÂ°ÂªÃ€Â» ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.
 {
-	__CellSub* pCell = this->SubCell(fX, fZ); // ¼­ºê¼¿À» °¡Á®¿Â´Ù..
-	if(nullptr == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ¾øÀ½ ¸»ÀÚ.
+	__CellSub* pCell = this->SubCell(fX, fZ); // Â¼Â­ÂºÃªÂ¼Â¿Ã€Â» Â°Â¡ÃÂ®Â¿Ã‚Â´Ã™..
+	if(nullptr == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // Â¾Ã¸Ã€Â½ Â¸Â»Ã€Ãš.
 
-	__Vector3 vPosV(fX, 5000.0f, fZ); // ²À´ë±â¿¡ À§Ä¡¸¦ ÇÏ°í..
-	__Vector3 vDir(0,-1, 0); // ¼öÁ÷ ¹æÇâ º¤ÅÍ
-	__Vector3 vColTmp(0,0,0); // ÃÖÁ¾ÀûÀ¸·Î °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡..
+	__Vector3 vPosV(fX, 5000.0f, fZ); // Â²Ã€Â´Ã«Â±Ã¢Â¿Â¡ Ã€Â§Ã„Â¡Â¸Â¦ Ã‡ÃÂ°Ã­..
+	__Vector3 vDir(0,-1, 0); // Â¼Ã¶ÃÃ· Â¹Ã¦Ã‡Ã¢ ÂºÂ¤Ã…Ã
+	__Vector3 vColTmp(0,0,0); // ÃƒÃ–ÃÂ¾Ã€Ã»Ã€Â¸Â·Ã Â°Â¡Ã€Ã¥ Â°Â¡Â±Ã®Â¿Ã® ÃƒÃ¦ÂµÂ¹ Ã€Â§Ã„Â¡..
 
 	int nIndex0, nIndex1, nIndex2;
 	float fT, fU, fV;
@@ -312,7 +312,7 @@ float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ô
 		nIndex1 = pCell->pdwCCVertIndices[i*3+1];
 		nIndex2 = pCell->pdwCCVertIndices[i*3+2];
 
-		// Ãæµ¹µÈ Á¡ÀÌ ÀÖÀ¸¸é..
+		// ÃƒÃ¦ÂµÂ¹ÂµÃˆ ÃÂ¡Ã€ÃŒ Ã€Ã–Ã€Â¸Â¸Ã©..
 		if(true == ::_IntersectTriangle(vPosV, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp))
 		{
 			if(vColTmp.y > fMaxTmp)
@@ -330,7 +330,7 @@ float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ô
 	return fMaxTmp;
 }
 
-void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´ç À§Ä¡ÀÇ ¼¿ Æ÷ÀÎÅÍ¸¦ µ¹·ÁÁØ´Ù.
+void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// Ã‡Ã˜Â´Ã§ Ã€Â§Ã„Â¡Ã€Ã‡ Â¼Â¿ Ã†Ã·Ã€ÃÃ…ÃÂ¸Â¦ ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.
 {
 	int x = (int)(vPos.x / CELL_MAIN_SIZE);
 	int z = (int)(vPos.z / CELL_MAIN_SIZE);
@@ -386,7 +386,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				break;
 			}
 
-			if ( (x != 0) && (xx == 0) )											// x °¨¼Ò, z Áõ°¡.
+			if ( (x != 0) && (xx == 0) )											// x Â°Â¨Â¼Ã’, z ÃÃµÂ°Â¡.
 			{
 				if ( (z != (MAX_CELL_MAIN-1)) && ( zz == (CELL_MAIN_DEVIDE-1) ) )
 					if ( m_pCells[x-1][z+1] != nullptr )
@@ -401,7 +401,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				break;
 			}
 
-			if ( (z != (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1) ) )		// x °¨¼Ò, z Áõ°¡.
+			if ( (z != (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1) ) )		// x Â°Â¨Â¼Ã’, z ÃÃµÂ°Â¡.
 			{
 				if ( (x != 0) && (xx == 0) )
 					if ( m_pCells[x-1][z+1] != nullptr )
@@ -423,7 +423,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 			break;
 
 		case 3:
-			if ( (z == (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1)) )			// z Áõ°¡.
+			if ( (z == (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1)) )			// z ÃÃµÂ°Â¡.
 			{
 				ppSubCell[i] = nullptr;
 				break;
@@ -445,7 +445,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 			break;
 
 		case 4:
-			if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )			// x Áõ°¡, z Áõ°¡.
+			if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )			// x ÃÃµÂ°Â¡, z ÃÃµÂ°Â¡.
 			{
 				ppSubCell[i] = nullptr;
 				break;
@@ -493,7 +493,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				ppSubCell[i] = nullptr;					
 			break;
 
-		case 5:																		// x Áõ°¡.
+		case 5:																		// x ÃÃµÂ°Â¡.
 			if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )
 			{
 				ppSubCell[i] = nullptr;
@@ -515,7 +515,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				ppSubCell[i] = nullptr;					
 			break;
 
-		case 6:																		// x Áõ°¡. z °¨¼Ò.		
+		case 6:																		// x ÃÃµÂ°Â¡. z Â°Â¨Â¼Ã’.		
 			if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )
 			{
 				ppSubCell[i] = nullptr;
@@ -564,7 +564,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				ppSubCell[i] = nullptr;					
 			break;
 
-		case 7:																		// z °¨¼Ò.
+		case 7:																		// z Â°Â¨Â¼Ã’.
 			if ( (z == 0) && (zz == 0) )	
 			{
 				ppSubCell[i] = nullptr;
@@ -586,7 +586,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				ppSubCell[i] = nullptr;					
 			break;
 
-		case 8:																		// x °¨¼Ò, z °¨¼Ò.
+		case 8:																		// x Â°Â¨Â¼Ã’, z Â°Â¨Â¼Ã’.
 			if ( (x == 0) && (xx == 0) )
 			{
 				ppSubCell[i] = nullptr;
