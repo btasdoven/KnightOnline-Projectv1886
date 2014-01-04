@@ -4,7 +4,7 @@
 #include <cstdio>
 
 const int CELL_MAIN_DEVIDE = 4;
-const int CELL_SUB_SIZE = 4; // 4m
+const int CELL_SUB_SIZE = 4;   // 4m
 const int CELL_MAIN_SIZE = CELL_MAIN_DEVIDE * CELL_SUB_SIZE;
 const int MAX_CELL_MAIN = 4096 / CELL_MAIN_SIZE;
 const int MAX_CELL_SUB = MAX_CELL_MAIN * CELL_MAIN_DEVIDE;
@@ -14,8 +14,8 @@ class CN3ShapeMgr
 public:
 	struct __CellSub
 	{
-		int 	nCCPolyCount; // Collision Check Polygon Count
-		uint32*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3
+		int 	nCCPolyCount;  // Collision Check Polygon Count
+		uint32*	pdwCCVertIndices;  // Collision Check Polygon Vertex Indices - wCCPolyCount * 3
 
 		void Load(FILE *fp)
 		{
@@ -45,8 +45,8 @@ public:
 
 	struct __CellMain
 	{
-		int		nShapeCount; // Shape Count;
-		WORD*	pwShapeIndices; // Shape Indices
+		int		nShapeCount;  // Shape Count;
+		WORD*	pwShapeIndices;  // Shape Indices
 		__CellSub SubCells[CELL_MAIN_DEVIDE][CELL_MAIN_DEVIDE];
 
 		void Load(FILE *fp)
