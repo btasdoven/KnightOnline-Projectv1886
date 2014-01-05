@@ -1639,22 +1639,8 @@ uint16 CUser::GetPremiumProperty(PremiumPropertyOpCodes type) {
         case PremiumItemSellPercent:
                 return pPremiumItem->ItemSellPercent;
         case PremiumExpPercent:
-                {
-                        foreach_stlmap_nolock(itr, g_pMain->m_PremiumItemExpArray) {
-                                _PREMIUM_ITEM_EXP *pPremiumItemExp = g_pMain->m_PremiumItemExpArray.GetData(itr->first);
-
-                                if (pPremiumItemExp != nullptr)
-                                {
-                                        if (m_bPremiumType == pPremiumItemExp->Type)
-                                        {
-                                                if (GetLevel() >= pPremiumItemExp->MinLevel && GetLevel() <= pPremiumItemExp->MaxLevel)
-                                                        return pPremiumItemExp->sPercent;
-                                        }
-                                }
-                        }
-                }
-        }
-
+           return pPremiumItem->Type;
+         }
         return 0;
 }
 
