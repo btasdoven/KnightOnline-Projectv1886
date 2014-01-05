@@ -5,4 +5,6 @@ X-Shield Project
 * Project owner is twostars
 
 * Project Developers ;
-  - X-Laz  / Source Code,Database,LUA Scripts
+  - X-Laz  / Source Code
+  - AKUMA  / Source Code
+  - RBACS (YNG) / Source Code
