@@ -465,15 +465,17 @@ void CNpc::ChaosStoneProcess(CUser *pUser, uint16 MonsterCount)
 */
 void CNpc::PVPMonumentProcess(CUser *pUser)
 {
-        if (pUser)
-        {
-                Packet result(WIZ_CHAT, uint8(MONUMENT_NOTICE));
-                result << uint8(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
-                g_pMain->Send_Zone(&result, GetZoneID(), nullptr, Nation::ALL);
+	if (pUser == nullptr)
+  return;
+		pUser->GiveItem(RED_TREASURE_CHEST);
+	{
+		Packet result(WIZ_CHAT, uint8(MONUMENT_NOTICE));
+		result << uint8(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
+		g_pMain->Send_Zone(&result, GetZoneID(), nullptr, Nation::ALL);
 
-                g_pMain->m_nPVPMonumentNation[GetZoneID()] = pUser->GetNation();
-                g_pMain->NpcUpdate(m_sSid, m_bMonster, pUser->GetNation(), pUser->GetNation() == KARUS ? MONUMENT_KARUS_SPID : MONUMENT_ELMORAD_SPID);
-        }
+		g_pMain->m_nPVPMonumentNation[GetZoneID()] = pUser->GetNation();
+		g_pMain->NpcUpdate(m_sSid, m_bMonster, pUser->GetNation(), pUser->GetNation() == KARUS ? MONUMENT_KARUS_SPID : MONUMENT_ELMORAD_SPID);
+	}
 }
 
 /*
