@@ -361,6 +361,14 @@ void CNpc::OnDeathProcess(Unit *pKiller)
                                 case NPC_KARUS_MONUMENT:
                                         NationMonumentProcess(pUser);
                                         break;
+				case NPC_CHAOS_STONE:
+					{
+					if (pUser == nullptr)
+					return ;
+					if (pUser->isInPKZone())
+					ChaosStoneProcess(pUser,5);
+					}
+					break;
                                 }
                         }
                         else if (m_bMonster)
